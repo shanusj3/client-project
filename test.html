@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajesh Sampat | Independent Director & Strategic Advisor</title>
+    <style>
+        :root {
+            --primary-blue: #1a2a6c;
+            --accent-gold: #b8955a;
+            --text-dark: #2d3436;
+            --light-gray: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-blue);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(26, 42, 108, 0.9), rgba(26, 42, 108, 0.8)),
+                url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 10%;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .section-title .underline {
+            width: 80px;
+            height: 4px;
+            background: var(--accent-gold);
+            margin: 0 auto;
+        }
+
+        /* Summary & Expertise */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .expertise-list {
+            list-style: none;
+        }
+
+        .expertise-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            font-weight: 500;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px 30px;
+            border-left: 3px solid var(--accent-gold);
+            margin-bottom: 30px;
+            background: var(--light-gray);
+            position: relative;
+        }
+
+        .timeline-item h3 {
+            color: var(--primary-blue);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Skills/Certifications Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--accent-gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-gold);
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">RAJESH SAMPAT</div>
+        <ul>
+            <li><a href="#about">Profile</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <div class="hero-content">
+            <h1>Rajesh Sampat</h1>
+            <p>Independent Director | Senior Executive | Mechanical Engineer</p>
+            <p style="font-size: 1rem; opacity: 0.9;">Driving growth, operational excellence, and global expansion for
+                manufacturing and engineering enterprises with over 38 years of leadership experience.</p>
+            <a href="#contact" class="btn">Collaborate With Me</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="section-title">
+            <h2>Executive Summary</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="summary-grid">
+            <div>
+                [cite_start]<p>I am a seasoned Mechanical Engineer and senior executive with a track record spanning 38+
+                    years across diverse industries including manufacturing, die casting, plastics, textile machinery,
+                    and consumer durables[cite: 8, 13, 15]. [cite_start]My core expertise lies in translating high-level
+                    strategy into flawless execution[cite: 21].</p>
+                <br>
+                [cite_start]<p>I specialize in building scalable systems and enabling sustainable growth in competitive
+                    global markets, having led R&D, manufacturing, and international business development across Europe
+                    and Asia[cite: 23, 27, 28].</p>
+            </div>
+            <div>
+                <h3>Core Competencies</h3>
+                <ul class="expertise-list">
+                    [cite_start]<li>Board Advisory & Governance [cite: 5, 33]</li>
+                    [cite_start]<li>Operational Excellence (Lean & PQDSCM) [cite: 21, 29]</li>
+                    [cite_start]<li>Technology Transfer & Industry 4.0 [cite: 12, 19, 28]</li>
+                    [cite_start]<li>Value Engineering & Cost Optimization [cite: 33]</li>
+                    [cite_start]<li>Leadership Development & Mentoring [cite: 35, 36]</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" style="background-color: var(--light-gray);">
+        <div class="section-title">
+            <h2>Professional Journey</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-date">August 2025 - Present</span>
+                <h3>Partner</h3>
+                [cite_start]<p><strong>Stratosync Engineering Service India LLP</strong> [cite: 44, 45]</p>
+                [cite_start]<p>Leading engineering service initiatives from Ahmedabad, Gujarat[cite: 46, 47].</p>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">December 2024 - June 2025</span>
+                <h3>Consultant</h3>
+                [cite_start]<p><strong>Modern Metal Cast</strong> [cite: 48, 49]</p>
+                [cite_start]<p>Provided strategic consultancy for casting operations[cite: 50, 51].</p>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">November 1992 - October 2024</span>
+                <h3>COO / CSO</h3>
+                [cite_start]<p><strong>Inspiron Engineering</strong> [cite: 52, 53]</p>
+                [cite_start]<p>Dedicated 32 years to operational and strategic leadership, driving long-term value
+                    creation[cite: 54].</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications">
+        <div class="section-title">
+            <h2>Specialized Credentials</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Governance</h3>
+                [cite_start]<p>Certified Independent Director [cite: 16, 31]</p>
+            </div>
+            <div class="card">
+                <h3>Artificial Intelligence</h3>
+                [cite_start]<p>Certified AI Generalist & Specialist in Designing Agentic AI Products [cite: 18, 22]</p>
+            </div>
+            <div class="card">
+                <h3>Value Analysis</h3>
+                [cite_start]<p>Professional Value Analyst (PVA) [cite: 24, 31]</p>
+            </div>
+            <div class="card">
+                <h3>Industry 4.0</h3>
+                [cite_start]<p>Foundation of Fourth Industrial Revolution [cite: 19, 20]</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="section-title">
+            <h2>Education</h2>
+            <div class="underline"></div>
+        </div>
+        <div style="text-align: center;">
+            <p><strong>Bachelor of Engineering (B.E.), Mechanical Engineering</strong></p>
+            [cite_start]<p>Faculty of Technology and Engineering, MS University of Vadodara [cite: 57, 58]</p>
+            [cite_start]<p><em>1983 - 1988</em> [cite: 58]</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <div class="underline"></div>
+        </div>
+        <div style="text-align: center;">
+            [cite_start]<p>Currently engaging as a consultant, advisor, and board member for organizations seeking
+                transformation[cite: 39, 41].</p>
+            <br>
+            [cite_start]<p><strong>Location:</strong> Ahmedabad, Gujarat, India [cite: 9]</p>
+            [cite_start]<p><strong>Email:</strong> rajeshsampat2016@gmail.com [cite: 2]</p>
+            [cite_start]<p><strong>LinkedIn:</strong> linkedin.com/in/rajeshsampat [cite: 3]</p>
+            <a href="mailto:rajeshsampat2016@gmail.com" class="btn">Send Inquiry</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Rajesh Sampat. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
