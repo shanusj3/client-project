@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,11 +23,16 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
-    // Intersection Observer for active section detection
+    if (!isHomePage) {
+      setIsScrolled(true);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+
+    // Intersection Observer for active section detection (home page only)
     const observerOptions = {
       root: null,
       rootMargin: "-20% 0px -70% 0px",
-      threshold: 0
+      threshold: 0,
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -37,9 +45,11 @@ export default function Header() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // IDs to observe
-    const sectionIds = content.headerNavLinks.map(link => link.href.replace("#", ""));
-    sectionIds.forEach(id => {
+    const sectionIds = content.headerNavLinks
+      .filter((l) => l.href.startsWith("#"))
+      .map((link) => link.href.replace("#", ""));
+
+    sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
@@ -48,12 +58,16 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
-  }, []);
+  }, [isHomePage]);
 
   const handleLinkClick = () => {
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-    }
+    if (isMenuOpen) setIsMenuOpen(false);
+  };
+
+  const isLinkActive = (href: string) => {
+    if (href.startsWith("/")) return pathname === href;
+    const id = href.replace("#", "");
+    return activeSection === id;
   };
 
   return (
@@ -66,52 +80,56 @@ export default function Header() {
       )}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <Link href="/" className={cn(
-          "font-headline text-2xl font-black tracking-tighter flex items-center gap-2 transition-colors",
-          !isScrolled ? "text-primary-foreground" : "text-black"
-        )}>
+        <Link
+          href="/"
+          className={cn(
+            "font-headline text-2xl font-black tracking-tighter flex items-center gap-2 transition-colors",
+            !isScrolled ? "text-primary-foreground" : "text-black"
+          )}
+        >
           <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-lg">
             <div className="w-5 h-5 bg-primary rotate-45"></div>
           </div>
           {content.name}
         </Link>
 
-        {/* Desktop Navigation - Boxed Style */}
-        <nav className={cn(
-          "hidden md:flex items-center gap-1 p-1 rounded-2xl transition-all duration-500",
-
-        )}>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-1 p-1 rounded-2xl transition-all duration-500">
           {content.headerNavLinks.map((link) => {
-            const id = link.href.replace("#", "");
-            const isActive = activeSection === id;
-
+            const active = isLinkActive(link.href);
+            const href = link.href.startsWith("#") && !isHomePage ? `/${link.href}` : link.href;
             return (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                href={href}
                 onClick={handleLinkClick}
                 className={cn(
-                  "px-5 py-2.5 text-sm font-medium transition-all duration-300",
-                  isActive
-                    ? "bg-black text-white rounded-full shadow-lg"
-                    : "bg-white text-black hover:bg-white/80  shadow-sm"
+                  "px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
+                  active
+                    ? "bg-black text-white shadow-lg"
+                    : "bg-white text-black hover:bg-white/80 shadow-sm"
                 )}
               >
                 {link.name}
-              </a>
+              </Link>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button asChild className={cn(
-            "rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-500 shadow-lg hover:shadow-xl bg-white text-black",
-
-          )}>
-            <Link href="#contact">Contact us</Link>
+          <Button
+            asChild
+            className="rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-500 shadow-lg hover:shadow-xl bg-white text-black hidden md:inline-flex"
+          >
+            <Link href={isHomePage ? "#contact" : "/#contact"}>Contact us</Link>
           </Button>
           <div className="md:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)} className={cn(!isScrolled ? "text-primary-foreground" : "text-black")}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={cn(!isScrolled ? "text-primary-foreground" : "text-black")}
+            >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
@@ -120,20 +138,25 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[88px] bg-white p-6 z-40 animate-in fade-in duration-300">
+        <div className="md:hidden fixed inset-0 top-[72px] bg-white p-6 z-40 animate-in fade-in duration-300">
           <nav className="flex flex-col gap-4">
-            {content.headerNavLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={handleLinkClick}
-                className="w-full text-xl font-bold p-6 bg-card/10 rounded-2xl text-black hover:bg-primary transition-all shadow-sm"
-              >
-                {link.name}
-              </a>
-            ))}
+            {content.headerNavLinks.map((link) => {
+              const href = link.href.startsWith("#") && !isHomePage ? `/${link.href}` : link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={href}
+                  onClick={handleLinkClick}
+                  className="w-full text-xl font-bold p-6 bg-card/10 rounded-2xl text-black hover:bg-primary transition-all shadow-sm"
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
             <Button asChild className="w-full bg-black text-white rounded-2xl h-16 text-xl font-black mt-4 shadow-xl">
-              <Link href="#contact" onClick={handleLinkClick}>Get in touch</Link>
+              <Link href={isHomePage ? "#contact" : "/#contact"} onClick={handleLinkClick}>
+                Get in touch
+              </Link>
             </Button>
           </nav>
         </div>

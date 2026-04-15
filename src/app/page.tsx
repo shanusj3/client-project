@@ -5,6 +5,8 @@ import About from '@/components/sections/competencies';
 import FeaturedExpert from '@/components/sections/featured-expert';
 import Forums from '@/components/sections/journey';
 import LeadershipJourney from '@/components/sections/leadership-journey';
+import ServicesSection from '@/components/sections/services';
+import ProjectsSection from '@/components/sections/projects';
 import Credentials from '@/components/sections/credentials';
 import Education from '@/components/sections/education';
 import Contact from '@/components/sections/contact';
@@ -20,6 +22,8 @@ export default function Home() {
         <FeaturedExpert />
         <Forums />
         <LeadershipJourney />
+        <ServicesSection />
+        <ProjectsSection />
         <Credentials />
         <Education />
         <Contact />
