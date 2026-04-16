@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,10 +26,10 @@ export default function Header() {
 
     if (!isHomePage) {
       setIsScrolled(true);
-      return () => window.removeEventListener("scroll", handleScroll);
+      setActiveSection("");
     }
 
-    // Intersection Observer for active section detection (home page only)
+    // Intersection Observer for active section detection
     const observerOptions = {
       root: null,
       rootMargin: "-20% 0px -70% 0px",
@@ -65,6 +66,7 @@ export default function Header() {
   };
 
   const isLinkActive = (href: string) => {
+    if (href === "/") return pathname === "/";
     if (href.startsWith("/")) return pathname === href;
     const id = href.replace("#", "");
     return activeSection === id;
@@ -83,14 +85,22 @@ export default function Header() {
         <Link
           href="/"
           className={cn(
-            "font-headline text-2xl font-black tracking-tighter flex items-center gap-2 transition-colors",
+            "font-headline text-2xl font-black tracking-tighter flex items-center gap-3 transition-colors",
             !isScrolled ? "text-primary-foreground" : "text-black"
           )}
         >
-          <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-lg">
-            <div className="w-5 h-5 bg-primary rotate-45"></div>
+          <div className="relative w-12 h-12 bg-white rounded-xl overflow-hidden shadow-lg border-2 border-white">
+            <Image
+              src="/logo.jpg"
+              alt={content.name}
+              fill
+              className="object-contain p-1"
+            />
           </div>
-          {content.name}
+          <div className="flex flex-col">
+            <span className="text-xl leading-none">{(content as any).shortName || content.name}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Strategic Engineering</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}

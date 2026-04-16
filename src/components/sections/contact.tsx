@@ -94,23 +94,23 @@ export default function Contact() {
                    </div>
                 </div>
 
-                <a href="mailto:rajeshsampat2016@gmail.com" className="flex items-center gap-6 group">
+                <a href={`mailto:${content.contact.email}`} className="flex items-center gap-6 group">
                    <div className="w-14 h-14 bg-card rounded-2xl flex items-center justify-center group-hover:bg-primary transition-colors">
                       <Mail className="w-6 h-6 text-black" />
                    </div>
                    <div className="space-y-1">
                       <p className="text-sm font-bold uppercase tracking-widest text-black/40">Email</p>
-                      <p className="text-lg font-bold text-black transition-colors group-hover:text-primary">rajeshsampat2016@gmail.com</p>
+                      <p className="text-lg font-bold text-black transition-colors group-hover:text-primary">{content.contact.email}</p>
                    </div>
                 </a>
 
-                <a href="https://www.linkedin.com/in/rajeshsampat" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
+                <a href={content.contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
                    <div className="w-14 h-14 bg-card rounded-2xl flex items-center justify-center group-hover:bg-primary transition-colors">
                       <Linkedin className="w-6 h-6 text-black" />
                    </div>
                    <div className="space-y-1">
                       <p className="text-sm font-bold uppercase tracking-widest text-black/40">LinkedIn</p>
-                      <p className="text-lg font-bold text-black transition-colors group-hover:text-primary">/in/rajeshsampat</p>
+                      <p className="text-lg font-bold text-black transition-colors group-hover:text-primary">LinkedIn Profile</p>
                    </div>
                 </a>
               </div>

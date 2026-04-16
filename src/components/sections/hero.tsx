@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import { content } from '@/app/lib/content';
 import { Button } from '@/components/ui/button';
@@ -76,30 +78,39 @@ export default function Hero() {
                 <defs>
                   <path id="circlePath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
                 </defs>
-                <text className="text-[7.5px] font-black uppercase tracking-[0.2em] fill-black">
+                <text className="text-[7px] font-black uppercase tracking-[0.2em] fill-black">
                   <textPath href="#circlePath">
-                    Rajesh Sampat • 38+ Years Leadership • Strategy • Execution •
+                    {content.name} • Strategic Engineering • Global Sourcing •
                   </textPath>
                 </text>
               </svg>
 
               {/* Central Circle with Icon */}
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl relative z-10 border border-black/5">
-                <ArrowDown className="text-primary w-6 h-6" />
+                <ArrowDown className="text-secondary w-6 h-6" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side - Image */}
-        <div className="flex-1 relative min-h-[300px] sm:min-h-[400px] md:min-h-0 bg-secondary">
+        {/* Right Side - Image / Gradient */}
+        <div className="flex-1 relative min-h-[300px] sm:min-h-[400px] md:min-h-0 bg-slate-900 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-black/40 z-10" />
           <Image
-            src="/hero/hero.png"
-            alt="Rajesh Sampat - Leadership"
+            src="/hero/industrial.png"
+            alt="Strategic Engineering Services India LLP"
             fill
-            className="object-cover object-top"
+            className="object-cover object-center opacity-70"
             priority
+            onError={(e) => {
+              // Fallback if image doesn't exist
+              (e.target as any).style.display = 'none';
+            }}
           />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+             <div className="w-64 h-64 border-2 border-white/5 rounded-full animate-pulse-slow" />
+             <div className="absolute w-96 h-96 border border-white/5 rounded-full animate-pulse-slow delay-700" />
+          </div>
         </div>
       </div>
     </section>

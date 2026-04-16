@@ -1,16 +1,17 @@
 "use client";
 
 import { content } from "@/app/lib/content";
-import { Shield, Settings, Cpu, TrendingUp, DollarSign, Users, ChevronRight } from "lucide-react";
+import { Globe, Search, CheckCircle, Users, TrendingUp, Briefcase, ChevronRight, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const iconMap = {
-  Shield: Shield,
-  Settings: Settings,
-  Cpu: Cpu,
-  TrendingUp: TrendingUp,
-  DollarSign: DollarSign,
+  Globe: Globe,
+  Search: Search,
+  CheckCircle: CheckCircle,
   Users: Users,
+  TrendingUp: TrendingUp,
+  Briefcase: Briefcase,
+  Settings: Settings,
 };
 
 export default function ServicesSection({ className, isPage = false }: { className?: string; isPage?: boolean }) {

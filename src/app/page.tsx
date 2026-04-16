@@ -2,15 +2,10 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import Hero from '@/components/sections/hero';
 import About from '@/components/sections/competencies';
-import FeaturedExpert from '@/components/sections/featured-expert';
-import Forums from '@/components/sections/journey';
-import LeadershipJourney from '@/components/sections/leadership-journey';
+import Leadership from '@/components/sections/featured-expert';
 import ServicesSection from '@/components/sections/services';
-import ProjectsSection from '@/components/sections/projects';
-import Credentials from '@/components/sections/credentials';
-import Education from '@/components/sections/education';
+import IndustriesSection from '@/components/sections/industries';
 import Contact from '@/components/sections/contact';
-import AIInquirer from '@/components/ai/inquirer';
 
 export default function Home() {
   return (
@@ -19,16 +14,11 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <About />
-        <FeaturedExpert />
-        <Forums />
-        <LeadershipJourney />
+        <Leadership />
         <ServicesSection />
-        <ProjectsSection />
-        <Credentials />
-        <Education />
+        <IndustriesSection />
         <Contact />
       </main>
-      <AIInquirer />
       <Footer />
     </>
   );
