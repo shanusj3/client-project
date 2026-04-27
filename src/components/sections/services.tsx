@@ -72,7 +72,9 @@ export default function ServicesSection({ className, isPage = false }: { classNa
                   </h3>
 
                   <p className="text-sm text-black/60 leading-relaxed mb-8 flex-grow">
-                    {service.description}
+                    {isPage 
+                      ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                      : service.description}
                   </p>
 
                   <ul className="space-y-4 mb-8">

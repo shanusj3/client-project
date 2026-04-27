@@ -15,7 +15,7 @@ const iconMap = {
   Wind: Wind,
 };
 
-export default function IndustriesSection({ className }: { className?: string }) {
+export default function IndustriesSection({ className, isPage = false }: { className?: string; isPage?: boolean }) {
   const { industries } = content;
 
   return (
@@ -47,7 +47,9 @@ export default function IndustriesSection({ className }: { className?: string })
                   {industry.title}
                 </h3>
                 <p className="text-black/60 leading-relaxed text-sm">
-                  {industry.description}
+                  {isPage 
+                    ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    : industry.description}
                 </p>
               </div>
             );

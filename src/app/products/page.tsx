@@ -26,7 +26,7 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <IndustriesSection className="bg-white" />
+        <IndustriesSection className="bg-white" isPage={true} />
         
         <Contact />
       </main>
