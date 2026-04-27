@@ -130,54 +130,6 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
-          STATS BAR
-      ═══════════════════════════════════════ */}
-      <div style={{ background: '#071828', paddingBottom: '2.5rem' }}>
-        <div className="container mx-auto px-6 md:px-12">
-          <div
-            className="rounded-2xl overflow-hidden"
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.08)',
-            }}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/[0.07]">
-              {hero.experienceBlock.stats.map((stat, idx) => {
-                const Icon = iconMap[stat.icon as keyof typeof iconMap] || Award;
-                return (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-5"
-                    style={{ padding: '1.75rem 2.5rem' }}
-                  >
-                    <div
-                      className="flex-shrink-0 flex items-center justify-center rounded-2xl"
-                      style={{ width: 56, height: 56, background: 'rgba(75,168,224,0.10)' }}
-                    >
-                      <Icon style={{ width: 26, height: 26, color: '#4BA8E0', strokeWidth: 1.5 }} />
-                    </div>
-                    <div>
-                      <p
-                        className="font-black text-white tracking-tighter leading-none"
-                        style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.9rem)' }}
-                      >
-                        {stat.value}
-                      </p>
-                      <p
-                        className="mt-1 font-semibold uppercase tracking-[0.18em] leading-none"
-                        style={{ fontSize: 10, color: 'rgba(255,255,255,0.34)' }}
-                      >
-                        {stat.label}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
