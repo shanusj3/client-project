@@ -71,22 +71,24 @@ export default function ServicesSection({ className, isPage = false }: { classNa
                     {service.title}
                   </h3>
 
-                  <p className="text-sm text-black/60 leading-relaxed mb-8 flex-grow">
-                    {isPage 
-                      ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                      : service.description}
-                  </p>
+                  {isPage && (
+                    <>
+                      <p className="text-sm text-black/60 leading-relaxed mb-8 flex-grow">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      </p>
 
-                  <ul className="space-y-4 mb-8">
-                    {service.highlights.map((highlight, index) => (
-                      <li key={index} className="flex items-center gap-3 text-sm font-bold text-black/70">
-                        <div className="w-5 h-5 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-3 h-3 text-secondary" />
-                        </div>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
+                      <ul className="space-y-4 mb-8">
+                        {service.highlights.map((highlight, index) => (
+                          <li key={index} className="flex items-center gap-3 text-sm font-bold text-black/70">
+                            <div className="w-5 h-5 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                              <Check className="w-3 h-3 text-secondary" />
+                            </div>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
 
                   <div className="pt-6 border-t border-black/5 mt-auto">
                     <button className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-secondary group-hover:gap-4 transition-all">

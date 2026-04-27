@@ -26,6 +26,8 @@ export const content = {
     description: "Strategic Engineering Services India LLP (SESIL) is a premier consultancy based in Ahmedabad, Gujarat, dedicated to bridging the gap between global industrial standards and Indian market opportunities.",
     extendedDescription: "We specialize in helping international companies enter the Indian market, find reliable suppliers, and manage complex engineering partnerships. Our team brings decades of cross-border experience in R&D, manufacturing, and operational excellence.",
     mediaCaption: "Building sustainable engineering partnerships across borders.",
+    mission: "To empower global industries by providing strategic engineering depth and bridge the gap between international standards and Indian manufacturing excellence.",
+    vision: "To be the most trusted strategic partner for global enterprises navigating the Indian market, recognized for operational excellence and sustainable value creation.",
     ceo: {
       name: "Rajesh Sampat",
       role: "Founder & Strategic Lead",
@@ -160,7 +162,7 @@ export const content = {
   },
   headerNavLinks: [
     { name: "Home", href: "/" },
-    { name: "About", href: "#about" },
+    { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Products", href: "/products" },
     { name: "Contact", href: "#contact" },

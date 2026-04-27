@@ -20,7 +20,6 @@ const ICON_MAP: Record<string, any> = {
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -37,37 +36,10 @@ export default function Header() {
 
     if (!isHomePage) {
       setIsScrolled(true);
-      setActiveSection("");
     }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -70% 0px",
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    const sectionIds = content.headerNavLinks
-      .filter((l) => l.href.startsWith("#"))
-      .map((link) => link.href.replace("#", ""));
-
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
     };
   }, [isHomePage]);
 
@@ -79,8 +51,7 @@ export default function Header() {
   const isLinkActive = (href: string) => {
     if (href === "/") return pathname === "/";
     if (href.startsWith("/")) return pathname === href;
-    const id = href.replace("#", "");
-    return activeSection === id;
+    return false;
   };
 
   const handleMouseEnter = (linkName: string) => {
@@ -108,7 +79,7 @@ export default function Header() {
     <header
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-500",
-        isScrolled
+        (isScrolled || !isHomePage)
           ? "bg-white/95 backdrop-blur-md py-4 shadow-sm"
           : "bg-transparent py-8"
       )}
@@ -118,7 +89,7 @@ export default function Header() {
           href="/"
           className={cn(
             "font-headline flex items-center gap-4 transition-colors",
-            !isScrolled ? "text-white" : "text-black"
+            (!isScrolled && isHomePage) ? "text-white" : "text-black"
           )}
         >
           <div className="relative w-11 h-11 bg-white rounded-lg overflow-hidden shadow-md">
@@ -153,9 +124,9 @@ export default function Header() {
                   href={href}
                   onClick={() => handleLinkClick(link.href)}
                   className={cn(
-                    "flex items-center gap-1.5 text-sm font-bold tracking-wide transition-all duration-300",
-                    !isScrolled ? "text-white/90 hover:text-white" : "text-black/70 hover:text-black",
-                    (active || (hasDropdown && activeDropdown === link.name)) && (isScrolled ? "text-secondary" : "text-secondary")
+                    "flex items-center gap-1.5 text-sm font-medium tracking-wide transition-all duration-300",
+                    (!isScrolled && isHomePage) ? "text-white/90 hover:text-white" : "text-black/70 hover:text-black",
+                    (active || (hasDropdown && activeDropdown === link.name)) && "text-secondary"
                   )}
                 >
                   {link.name}
@@ -194,18 +165,10 @@ export default function Header() {
                               key={item.id}
                               href={itemHref}
                               onClick={() => handleLinkClick(itemHref)}
-                              className="group/item flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all duration-300 border border-transparent hover:border-black/5"
+                              className="group/item flex items-center p-4 rounded-2xl hover:bg-slate-50 transition-all duration-300 border border-transparent hover:border-black/5"
                             >
-                              <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 group-hover/item:bg-secondary transition-colors duration-300">
-                                <Icon className="w-5 h-5 text-black group-hover/item:text-white" />
-                              </div>
-                              <div className="space-y-1">
-                                <p className="text-sm font-black text-black tracking-tight">{item.title}</p>
-                                <p className="text-[11px] text-black/50 leading-tight line-clamp-2">{item.description}</p>
-                                <div className="flex items-center gap-1 pt-1 opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all">
-                                   <span className="text-[9px] font-black uppercase text-secondary">Learn More</span>
-                                   <ArrowRight className="w-3 h-3 text-secondary" />
-                                </div>
+                              <div className="flex items-center">
+                                <p className="text-sm font-medium text-black tracking-tight">{item.title}</p>
                               </div>
                             </Link>
                           );
@@ -234,7 +197,7 @@ export default function Header() {
             asChild
             className={cn(
               "rounded-full px-7 h-10 text-xs font-black uppercase tracking-widest transition-all duration-500 shadow-xl",
-              !isScrolled 
+              (!isScrolled && isHomePage) 
                 ? "bg-white text-black hover:bg-white/90" 
                 : "bg-primary text-white hover:bg-primary/90"
             )}
@@ -246,7 +209,7 @@ export default function Header() {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={cn(!isScrolled ? "text-white" : "text-black")}
+              className={cn((!isScrolled && isHomePage) ? "text-white" : "text-black")}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -267,7 +230,7 @@ export default function Header() {
                   <Link
                     href={href}
                     onClick={() => handleLinkClick(link.href)}
-                    className="w-full text-lg font-black p-5 bg-slate-50 flex items-center justify-between rounded-xl text-black hover:bg-slate-100 transition-all border border-black/5"
+                    className="w-full text-lg font-medium p-5 bg-slate-50 flex items-center justify-between rounded-xl text-black hover:bg-slate-100 transition-all border border-black/5"
                   >
                     {link.name}
                     {hasDropdown && <ChevronDown className="w-5 h-5 opacity-30" />}
@@ -280,7 +243,7 @@ export default function Header() {
                            key={item.id}
                            href={link.href === "/services" ? `/#services` : `/#products`}
                            onClick={() => handleLinkClick(item.href)}
-                           className="flex items-center gap-4 p-4 bg-slate-50/50 rounded-xl text-sm font-bold text-black/70 italic hover:text-black hover:bg-secondary/10 transition-colors"
+                           className="flex items-center gap-4 p-4 bg-slate-50/50 rounded-xl text-sm font-medium text-black/70 italic hover:text-black hover:bg-secondary/10 transition-colors"
                          >
                            <ArrowRight className="w-3 h-3 text-secondary" />
                            {item.title}

@@ -5,7 +5,7 @@ import { content } from '@/app/lib/content';
 import { Badge } from '@/components/ui/badge';
 import { Users } from 'lucide-react';
 
-export default function FeaturedExpert() {
+export default function FeaturedExpert({ isPage = false }: { isPage?: boolean }) {
   const { about } = content;
   const { ceo } = about;
 

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 
-export default function About() {
+export default function About({ isPage = false }: { isPage?: boolean }) {
   const { about } = content;
 
   return (
@@ -27,18 +27,30 @@ export default function About() {
                 <p className="text-lg md:text-xl text-black/80 font-medium leading-relaxed max-w-xl">
                   {about.description}
                 </p>
-                <p className="text-base text-black/60 leading-relaxed max-w-xl">
-                  {about.extendedDescription}
-                </p>
+                {isPage && (
+                  <p className="text-base text-black/60 leading-relaxed max-w-xl">
+                    {about.extendedDescription}
+                  </p>
+                )}
              </div>
 
              <div className="flex flex-wrap gap-4 pt-4">
-                <Button asChild size="lg" className="bg-[#007A87] text-white hover:bg-[#005F68] rounded-full px-10 h-16 text-sm font-black uppercase tracking-widest shadow-xl shadow-teal-500/10">
-                   <Link href="#services">Our Services</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-teal-100 text-teal-800 hover:bg-teal-50 rounded-full px-10 h-16 text-sm font-black uppercase tracking-widest bg-teal-50/30">
-                   <Link href="#contact">Get In Touch</Link>
-                </Button>
+                {isPage ? (
+                  <>
+                    <Button asChild size="lg" className="bg-[#007A87] text-white hover:bg-[#005F68] rounded-full px-10 h-16 text-sm font-black uppercase tracking-widest shadow-xl shadow-teal-500/10">
+                       <Link href="/services">Our Services</Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="border-teal-100 text-teal-800 hover:bg-teal-50 rounded-full px-10 h-16 text-sm font-black uppercase tracking-widest bg-teal-50/30">
+                       <Link href="/#contact">Get In Touch</Link>
+                    </Button>
+                  </>
+                ) : (
+                  <Button asChild size="lg" className="bg-[#007A87] text-white hover:bg-[#005F68] rounded-full px-10 h-16 text-sm font-black uppercase tracking-widest shadow-xl shadow-teal-500/10 group">
+                    <Link href="/about" className="flex items-center gap-2">
+                      LEARN MORE ABOUT US <ArrowDown className="w-4 h-4 -rotate-90 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </Button>
+                )}
              </div>
           </div>
 

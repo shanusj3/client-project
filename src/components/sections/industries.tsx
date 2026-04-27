@@ -46,11 +46,11 @@ export default function IndustriesSection({ className, isPage = false }: { class
                 <h3 className="text-xl font-bold text-black mb-4 tracking-tight group-hover:text-secondary transition-colors">
                   {industry.title}
                 </h3>
-                <p className="text-black/60 leading-relaxed text-sm">
-                  {isPage 
-                    ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    : industry.description}
-                </p>
+                {isPage && (
+                  <p className="text-black/60 leading-relaxed text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </p>
+                )}
               </div>
             );
           })}
