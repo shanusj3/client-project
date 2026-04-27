@@ -19,11 +19,11 @@ export default function IndustriesSection({ className }: { className?: string })
   const { industries } = content;
 
   return (
-    <section id="products" className={cn("py-24 bg-slate-50 relative overflow-hidden", className)}>
+    <section id="products" className={cn("py-20 md:py-24 bg-slate-50 relative overflow-hidden", className)}>
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-black mb-6">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-black mb-4 md:mb-6">
               {industries.title}
             </h2>
             <p className="text-xl text-black/60 leading-relaxed">

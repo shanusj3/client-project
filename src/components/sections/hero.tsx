@@ -2,117 +2,182 @@
 
 import Image from 'next/image';
 import { content } from '@/app/lib/content';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowDown } from 'lucide-react';
+import { ArrowRight, Award, Briefcase, Globe } from 'lucide-react';
 
-function cn(...classes: (string | boolean | undefined | null)[]) {
-  return classes.filter(Boolean).join(' ');
-}
+const iconMap = {
+  Award: Award,
+  Briefcase: Briefcase,
+  Globe: Globe,
+};
 
 export default function Hero() {
+  const { hero } = content;
+
   return (
-    <section
-      id="home"
-      className="relative flex flex-col min-h-screen"
-    >
-      {/* Top Banner - Navy Blue */}
-      <div className="bg-primary pt-40 sm:pt-48 pb-20 sm:pb-24 px-6 md:px-12 lg:px-24 flex-shrink-0">
-        <div className="space-y-3 sm:space-y-4 max-w-5xl">
-          <h1 className="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-primary-foreground leading-[0.9] [letter-spacing:-0.04em]">
-            {content.hero.title}
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl font-medium text-primary-foreground/80 tracking-tight">
-            {content.hero.subtitle}
-          </p>
-
-          <div className="pt-3 sm:pt-4">
-            <Button
-              asChild
-              size="lg"
-              className="bg-black text-white hover:bg-black/90 rounded-full px-8 sm:px-10 h-12 sm:h-14 text-base sm:text-lg font-bold"
-            >
-              <Link href="#contact">{content.hero.cta}</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-
-
-      <div className="flex flex-col md:flex-row flex-1 min-h-0">
-
-        <div className="flex-1 bg-background text-foreground p-8 md:p-12 lg:p-24 flex flex-col justify-center relative min-h-[360px] sm:min-h-[420px] md:min-h-0">
-          <div className="space-y-4 sm:space-y-6">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-none mb-2 sm:mb-4">
-              {content.hero.experienceBlock.title}
-            </h2>
-            <p className="max-w-md text-base sm:text-xl text-muted-foreground leading-relaxed">
-              {content.hero.experienceBlock.description}
-            </p>
-
-            <div className="flex flex-wrap gap-3 sm:gap-4 pt-4 sm:pt-6">
-              {content.hero.experienceBlock.buttons.map((btn, idx) => (
-                <Button
-                  key={idx}
-                  asChild
-                  variant={idx === 0 ? 'default' : 'outline'}
-                  size="lg"
-                  className={cn(
-                    'rounded-full px-6 sm:px-8 h-11 sm:h-12 font-bold text-sm sm:text-base',
-                    idx === 0
-                      ? 'bg-secondary text-secondary-foreground hover:bg-secondary/90'
-                      : 'border-black text-black hover:bg-black hover:text-white'
-                  )}
-                >
-                  <Link href={btn.href}>{btn.name}</Link>
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Scrolling Badge */}
-          <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-32 h-32 z-20">
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* Rotating SVG Text */}
-              <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full animate-spin-slow origin-center">
-                <defs>
-                  <path id="circlePath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
-                </defs>
-                <text className="text-[7px] font-black uppercase tracking-[0.2em] fill-black">
-                  <textPath href="#circlePath">
-                    {content.name} • Strategic Engineering • Global Sourcing •
-                  </textPath>
-                </text>
-              </svg>
-
-              {/* Central Circle with Icon */}
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl relative z-10 border border-black/5">
-                <ArrowDown className="text-secondary w-6 h-6" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side - Image / Gradient */}
-        <div className="flex-1 relative min-h-[300px] sm:min-h-[400px] md:min-h-0 bg-slate-900 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-black/40 z-10" />
+    <>
+      {/* ═══════════════════════════════════════
+          HERO
+      ═══════════════════════════════════════ */}
+      <section
+        id="home"
+        className="relative flex flex-col overflow-hidden"
+        style={{ background: '#071828', minHeight: '88vh' }}
+      >
+        {/* Full-bleed background photo */}
+        <div className="absolute inset-0 z-0">
           <Image
-            src="/hero/industrial.png"
-            alt="Strategic Engineering Services India LLP"
+            src="/hero/industrial-full.jpg"
+            alt=""
             fill
-            className="object-cover object-center opacity-70"
             priority
-            onError={(e) => {
-              // Fallback if image doesn't exist
-              (e.target as any).style.display = 'none';
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* Dark-blue overlay: opaque left, transparent right */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(100deg, rgba(5,16,34,0.95) 0%, rgba(5,16,34,0.88) 32%, rgba(5,16,34,0.48) 58%, rgba(5,16,34,0.18) 100%)',
             }}
           />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-             <div className="w-64 h-64 border-2 border-white/5 rounded-full animate-pulse-slow" />
-             <div className="absolute w-96 h-96 border border-white/5 rounded-full animate-pulse-slow delay-700" />
+          {/* Bottom fade into stats bar */}
+          <div
+            className="absolute bottom-0 left-0 right-0"
+            style={{
+              height: 140,
+              background: 'linear-gradient(to top, #071828, transparent)',
+            }}
+          />
+        </div>
+
+        {/* Copy block — wide container so headline fits on 2 lines */}
+        <div
+          className="container mx-auto px-6 md:px-12 relative z-10"
+          style={{ paddingTop: 'clamp(7rem, 13vw, 11rem)', paddingBottom: '5rem' }}
+        >
+          {/* max-w-5xl keeps text block wide enough for 2-line headline */}
+          <div className="max-w-5xl space-y-5">
+
+            {/* Eyebrow */}
+            <p
+              className="font-black uppercase tracking-[0.24em]"
+              style={{ fontSize: 11, color: '#4BA8E0' }}
+            >
+              STRATEGIC ENGINEERING SOLUTIONS
+            </p>
+
+            {/* ── Headline: "Engineering Excellence" line 1, "for Global Expansion" line 2 ── */}
+            <h1
+              className="font-black text-white tracking-tighter leading-tight"
+              style={{
+                fontSize: 'clamp(2.8rem, 5vw, 4.5rem)',
+                maxWidth: 900, // control width manually
+              }}
+            >
+              Engineering Excellence <br />
+              for Global Expansion
+            </h1>
+            {/* Sub-copy */}
+            <p
+              className="leading-relaxed"
+              style={{
+                fontSize: 'clamp(0.95rem, 1.3vw, 1.1rem)',
+                color: 'rgba(255,255,255,0.52)',
+                maxWidth: 560,
+              }}
+            >
+              Delivering strategic engineering, global sourcing, and market entry
+              solutions that empower businesses to scale with confidence in India
+              and beyond.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              {/* Primary — teal-blue filled rounded-rect */}
+              <Link
+                href="#contact"
+                className="group inline-flex items-center justify-center gap-3 font-bold text-white transition-all hover:brightness-110"
+                style={{
+                  height: 56,
+                  padding: '0 2rem',
+                  borderRadius: 12,
+                  background: '#1B72B0',
+                  fontSize: '0.875rem',
+                }}
+              >
+                Discuss Your Requirements
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+
+              {/* Ghost — pill outline */}
+              <Link
+                href="#services"
+                className="inline-flex items-center justify-center font-bold text-white transition-all hover:bg-white/10"
+                style={{
+                  height: 56,
+                  padding: '0 2rem',
+                  borderRadius: 9999,
+                  border: '1.5px solid rgba(255,255,255,0.30)',
+                  fontSize: '0.875rem',
+                }}
+              >
+                Explore Our Services
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          STATS BAR
+      ═══════════════════════════════════════ */}
+      <div style={{ background: '#071828', paddingBottom: '2.5rem' }}>
+        <div className="container mx-auto px-6 md:px-12">
+          <div
+            className="rounded-2xl overflow-hidden"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/[0.07]">
+              {hero.experienceBlock.stats.map((stat, idx) => {
+                const Icon = iconMap[stat.icon as keyof typeof iconMap] || Award;
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-5"
+                    style={{ padding: '1.75rem 2.5rem' }}
+                  >
+                    <div
+                      className="flex-shrink-0 flex items-center justify-center rounded-2xl"
+                      style={{ width: 56, height: 56, background: 'rgba(75,168,224,0.10)' }}
+                    >
+                      <Icon style={{ width: 26, height: 26, color: '#4BA8E0', strokeWidth: 1.5 }} />
+                    </div>
+                    <div>
+                      <p
+                        className="font-black text-white tracking-tighter leading-none"
+                        style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.9rem)' }}
+                      >
+                        {stat.value}
+                      </p>
+                      <p
+                        className="mt-1 font-semibold uppercase tracking-[0.18em] leading-none"
+                        style={{ fontSize: 10, color: 'rgba(255,255,255,0.34)' }}
+                      >
+                        {stat.label}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }

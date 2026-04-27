@@ -1,7 +1,6 @@
-"use client";
-
+import Image from "next/image";
 import { content } from "@/app/lib/content";
-import { Globe, Search, CheckCircle, Users, TrendingUp, Briefcase, ChevronRight, Settings } from "lucide-react";
+import { Globe, Search, CheckCircle, Users, TrendingUp, Briefcase, ChevronRight, Settings, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const iconMap = {
@@ -18,62 +17,80 @@ export default function ServicesSection({ className, isPage = false }: { classNa
   const { services } = content;
 
   return (
-    <section id="services" className={cn("py-24 relative overflow-hidden", className)}>
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        {!isPage && (
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-black mb-6">
-                {services.title}
-              </h2>
-              <p className="text-xl text-black/60 leading-relaxed">
-                {services.subtitle}
-              </p>
-            </div>
+    <section id="services" className={cn("py-24 bg-[#F8FAFC]", className)}>
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-px w-8 bg-secondary/30" />
+            <span className="text-secondary font-black uppercase tracking-[0.2em] text-[10px] md:text-xs">
+              WHAT WE DO
+            </span>
+            <div className="h-px w-8 bg-secondary/30" />
           </div>
-        )}
+          <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-black leading-tight">
+            {services.title}
+          </h2>
+          <p className="text-lg text-black/60 leading-relaxed">
+            {services.subtitle}
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {services.items.map((service) => {
             const Icon = iconMap[service.icon as keyof typeof iconMap] || Settings;
             return (
               <div
                 key={service.id}
-                className="group relative p-8 bg-white border border-black/5 rounded-3xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden flex flex-col h-full"
+                className="group bg-white rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-black/5 transition-all duration-500 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2 flex flex-col h-full"
               >
-                {/* Background Decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-16 -mt-16 transition-all duration-500 group-hover:scale-150" />
-                
-                <div className="mb-8 relative">
-                  <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center shadow-lg transform transition-transform duration-500 group-hover:rotate-6">
-                    <Icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <span className="absolute -bottom-2 -right-2 px-3 py-1 bg-primary text-[10px] font-bold tracking-widest uppercase rounded-full border-2 border-white shadow-sm">
-                    {service.tag}
-                  </span>
-                </div>
+                {/* Top Image Section */}
+                <div className="relative h-56 md:h-64 overflow-hidden">
+                  <Image
+                    src={service.image || "/sections/industrial-specialist.jpg"}
+                    alt={service.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
 
-                <h3 className="text-2xl font-bold text-black mb-4 tracking-tight group-hover:text-primary transition-colors">
-                  {service.title}
-                </h3>
-                
-                <p className="text-black/60 leading-relaxed mb-8 flex-grow">
-                  {service.description}
-                </p>
-
-                <div className="space-y-3 mb-8">
-                  {service.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-center gap-2 text-sm font-medium text-black/80">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      {highlight}
+                  {/* Icon and Tag Overlays */}
+                  <div className="absolute inset-0 p-6 flex items-start justify-between">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white/30 backdrop-blur-md flex items-center justify-center">
+                      <Icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                     </div>
-                  ))}
+                    <span className="px-3 py-1 bg-secondary/90 backdrop-blur-sm text-[8px] font-black tracking-widest text-white uppercase rounded-full shadow-lg">
+                      {service.tag}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="pt-6 border-t border-black/5 mt-auto">
-                  <button className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-black group-hover:gap-4 transition-all tracking-tighter">
-                    Learn More <ChevronRight className="w-4 h-4 text-primary" />
-                  </button>
+                {/* Bottom Content Section */}
+                <div className="p-7 md:p-10 flex flex-col flex-grow bg-white">
+                  <h3 className="text-xl md:text-2xl font-black text-black mb-4 tracking-tighter leading-tight group-hover:text-secondary transition-colors">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-sm text-black/60 leading-relaxed mb-8 flex-grow">
+                    {service.description}
+                  </p>
+
+                  <ul className="space-y-4 mb-8">
+                    {service.highlights.map((highlight, index) => (
+                      <li key={index} className="flex items-center gap-3 text-sm font-bold text-black/70">
+                        <div className="w-5 h-5 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3 h-3 text-secondary" />
+                        </div>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="pt-6 border-t border-black/5 mt-auto">
+                    <button className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-secondary group-hover:gap-4 transition-all">
+                      LEARN MORE <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             );
